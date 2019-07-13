@@ -1,0 +1,28 @@
+.message-area {
+  .message-display-area {
+    position: absolute;
+    bottom: 82px;
+    overflow-y: auto;
+    width: 87%;
+    height: 85%;
+    color: black;
+    padding: 10px 20px;
+  }
+  .message-entry-area {
+    position: fixed;
+    bottom: 23px;
+    padding: 10px 20px;
+    width: 87%;
+    input {
+      height: 45px;
+      border: 2px solid #a09e9e;
+      width: 100%;
+      border-radius: 10px;
+      padding: 0 10px;
+      color: black;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

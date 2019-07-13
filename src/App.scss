@@ -1,0 +1,12 @@
+.App {
+  background-color: white; 
+  min-height: 100vh;
+  display: flex;
+  .side-bar {
+    width: 13%;
+    // max-width: 230px;
+  }
+  .main-area {
+    width: 87%;
+  }
+}
