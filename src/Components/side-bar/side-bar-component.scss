@@ -13,8 +13,6 @@
     .list-item-header {
       font-weight: 700;
       .add-icon {
-        font-size: 22px;
-        font-weight: 900;
         float: right;
         cursor: pointer;
       }
@@ -32,12 +30,20 @@
       cursor: pointer;
       line-height: 30px;
     }
-    .list-item-content:hover {
-      background-color: #350d36;
+    .list-item-content {
+      &:hover {
+        background-color: #350d36;
+      }
+      &.selected {
+        background: #1164a3 !important;
+        color: white;
+      }
     }
-    .list-item-content.selected {
-      background: #1164a3 !important;
-      color: white;
+    .fa-circle {
+      font-size: 10px;
+      position: relative;
+      top: -2px;
+      margin-right: 4px;
     }
   }
 }

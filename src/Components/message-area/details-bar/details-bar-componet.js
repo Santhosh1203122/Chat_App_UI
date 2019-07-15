@@ -23,17 +23,17 @@ export default class DetailsBarComponent extends React.Component {
                     <div className="message-area-title">
                         #general
                     </div>
-                    <div class="message-area-content">
-                        <span className="content"><i class="far fa-star"></i></span>
+                    <div className="message-area-content">
+                        <span className="content"><i className="far fa-star"></i></span>
                         <span className="content"><i className="far fa-user"></i> 180</span>
                     </div>
                 </div>
                 <div className="search-area-details">
                     <div className="search-container">
-                        <i class="fas fa-search"></i>
+                        <i className="fas fa-search"></i>
                         <input type="text" placeholder="Search..." />
                     </div>
-                    <i class="fas fa-cog"></i>
+                    <i className="fas fa-cog"></i>
                 </div>
             </div>
         );

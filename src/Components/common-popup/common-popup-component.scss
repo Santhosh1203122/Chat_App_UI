@@ -1,0 +1,43 @@
+.common-popup {
+  color: black;
+  .add-icon {
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+  }
+  .popup-content {
+    width: 60% !important;
+    font-weight: 400;
+    .custom-popup-content {
+      padding: 20px;
+      h3 {
+        margin: 0;
+      }
+      p {
+        margin-top: 10px;
+      }
+      .input-holder {
+        margin: 20px 0;
+        input {
+          width: 100%;
+          border-radius: 10px;
+          height: 45px;
+          border: 1px solid #a7a6a6;
+          padding: 0 10px;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      .btn {
+        float: right;
+        margin: 0 0 15px 15px;
+        &.create {
+          background-color: orange;
+          color: white;
+          font-weight: 600; 
+        }
+      }
+    }
+  }
+}

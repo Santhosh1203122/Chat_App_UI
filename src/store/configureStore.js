@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 import reducer from '../reducers/Reducer'
-import mySaga from '../sagas/videoSagas'
+import mySaga from '../sagas/commonsaga'
 
 export function configureStore(initialState = {}) {
     // create the saga middleware

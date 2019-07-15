@@ -1,26 +1,34 @@
 import { ACTIONS } from '../constants/Constants';
 
 const intialState = {
-    videoList: [],
-    totalNoOfVideos: 0,
-    searchField: '',
-    lastPageRequested: 1,
-    isLastSetOfData: false
+    userDetails: {},
+    groups: [],
+    directMessage: [],
+    threads: [],
+    conversations: [],
+    currentUserId: 1,
+    selectedId: null,
+    selectedMode: null
 };
 
-function VideoReducer(state = intialState, action) {
+function Reducer(state = intialState, action) {
     switch (action.type) {
-        case ACTIONS.GET_VIDEO_DATA_SUCCESS:
-            return Object.assign({}, state, { videoList: state.videoList.concat(action.data['contentItems'].content), isLastSetOfData: action.data['isLastSetOfData'], lastPageRequested: action.data['pageNumRequested']})
-        case ACTIONS.SEARCH_VIDEO_SUCCESS_ACTION:
-            return Object.assign({}, state, { videoList: action.data });
-        case ACTIONS.SEARCH_VIDEO_ACTION:
-            return Object.assign({}, state, { searchField: action.searchParams });
-        case ACTIONS.CLEAR_VIDEO_ACTION:
-            return Object.assign({}, state, { videoList: [] });
+        case ACTIONS.GET_INITIAL_DATA_SUCESS:
+            const responseData = action.data;
+            return Object.assign({}, state, { userDetails: responseData, groups: responseData.groups, directMessage: responseData.im_users, threads: responseData.threads });
+        case ACTIONS.GET_INDIVIDUAL_CONVERSATION_HISTORY_SUCESS:
+            return Object.assign({}, state, { conversations: action.data });
+        case ACTIONS.SET_CURRENT_MODE_DETAILS:
+            return Object.assign({}, state, { selectedId: action.data.id, selectedMode: action.data.type });
+        case ACTIONS.SEND_INDIVIDUAL_CONVERSATION_HISTORY_SUCESS:
+            return Object.assign({}, state, { conversations: state.conversations.concat(action.data) });
+        case ACTIONS.SET_CURRENT_USER:
+            return Object.assign({}, state, { currentUserId: action.data.id });
+        case ACTIONS.CREATE_GROUP_SUCCESS:
+            return Object.assign({}, state, { groups: state.groups.concat(action.data) });
         default:
             return state;
     }
 }
 
-export default VideoReducer; 
+export default Reducer; 

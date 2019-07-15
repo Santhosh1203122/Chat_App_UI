@@ -6,16 +6,14 @@ export default class MessageContentComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            videoList: [],
-            isLastSetOfData: false,
-            lastPageRequested: 1
+            conversations: []
         }
     }
     componentDidMount() {
 
     }
     componentWillReceiveProps(newProps) {
-        // this.setState({  });
+        this.setState({conversations: newProps.conversations  });
     }
 
     generateMessageContent = (messages) => {
@@ -25,9 +23,9 @@ export default class MessageContentComponent extends React.Component {
                     <img src={displayImage} />
                 </div>
                 <div className="message-content">
-                    <span className="user-name">test</span>
-                    <span>8:30pm</span>
-                    <p className="message">Finished my course and certificate verification process a week before, but still now not received my certificate. </p>
+                    <span className="user-name">{message.userName}</span>
+                    <span>{new Date(message.time * 1000).toLocaleTimeString("en-US")} </span>
+                    <p className="message">{message.message} </p>
                 </div>
 
             </div>
@@ -35,10 +33,9 @@ export default class MessageContentComponent extends React.Component {
         });
     }
     render() {
-        const messages = [1, 2, 1, 1, 1, 1, 1, 1, 1, , 1, 1, 1, 1, 1, 1]
         return (
             <div>
-                {this.generateMessageContent(messages)}
+                {this.generateMessageContent(this.state.conversations)}
             </div>
 
         );
@@ -46,6 +43,5 @@ export default class MessageContentComponent extends React.Component {
 }
 
 MessageContentComponent.propTypes = {
-    // videoList: PropTypes.array,
-    // getVideoByPageNumber: PropTypes.func
+    conversations: PropTypes.array,
 }

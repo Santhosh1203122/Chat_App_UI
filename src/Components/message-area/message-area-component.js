@@ -8,29 +8,34 @@ export default class MessageAreaComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            videoList: [],
-            isLastSetOfData: false,
-            lastPageRequested: 1
+            conversations: []
         }
     }
     componentDidMount() {
         // document.addEventListener('scroll', this.trackScrolling);
     }
     componentWillReceiveProps(newProps) {
-        // this.setState();
+        if(newProps.conversations) {
+            this.setState({conversations: newProps.conversations});
+        }
+    }
+    sendMessage = (event) => {
+        if(event.key === 'Enter') {
+            this.props.sendMessage(event.target.value);
+            event.target.value = ''
+        }
     }
 
 
     render() {
-        const messages = ['test', 'test2']
         return (
             <div className="message-area">
                 <DetailsBarComponent />
                 <div className="message-display-area">
-                    <MessageContentComponent />
+                    <MessageContentComponent conversations={this.state.conversations}/>
                 </div>
                 <div className="message-entry-area">
-                    <input placeholder="Enter Messge here" />
+                    <input placeholder="Enter Messge here"  onKeyDown={this.sendMessage}/>
                 </div>
             </div>
         );
@@ -38,6 +43,8 @@ export default class MessageAreaComponent extends React.Component {
 }
 
 MessageAreaComponent.propTypes = {
+    conversations: PropTypes.array,
+    sendMessage: PropTypes.func
     // videoList: PropTypes.array,
     // getVideoByPageNumber: PropTypes.func,
     // isLastSetOfData: PropTypes.any,

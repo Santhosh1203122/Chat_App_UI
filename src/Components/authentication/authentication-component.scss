@@ -1,0 +1,70 @@
+.authentication {
+  height: 100vh;
+  background: url(../../Utils/bg.jpg) no-repeat center;
+  background-size: cover;
+  h3 {
+    margin: 20px 10% 0 10%; 
+  }
+  .authentication-form-login {
+    width: 400px;
+    height: 320px;
+    border-radius: 10px;
+    background-color: #0000008f;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    .input-holder{
+      margin: 30px 0;
+      padding:0  10%;
+      input {
+        width: 100%;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid #9a9a9a;
+        background: white;
+        padding: 0 10px;
+        color: black
+      }
+    }
+  }
+  .button-holder {
+    margin-bottom: 20px;
+    .custom-btn {
+      color: black;
+      margin-top: 0;
+    }
+  }
+  .remember-me {
+    margin: 15px 0;
+    text-align: left;
+  }
+
+  .register-Success {
+    text-align: center;
+    margin-top: 40%;
+    h3 {
+      margin-top: 25px;
+      font-weight: 700;
+      color: #fbbb34;
+    }
+    p {
+      margin-top: 15px;
+      color: #1d96bb;
+    }
+    i {
+      font-size: 60px;
+      color: #1d96bb;
+    }
+  }
+  button {
+    a {
+      color: white;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
