@@ -37,3 +37,14 @@ export function createGroupSucess(data) {
         data
     }
 }
+
+export function sendGroupMessage(payload) {
+    const serviceParams = {};
+    serviceParams.apiName = 'SEND_GROUP_MESSAGE';
+    serviceParams.payload = payload;
+    const requestData = constructUrl(serviceParams);
+    return {
+        type: ACTIONS.SEND_GROUP_MESSAGE,
+        requestData
+    }
+}

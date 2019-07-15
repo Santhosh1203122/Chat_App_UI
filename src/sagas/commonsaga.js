@@ -68,6 +68,10 @@ function* sendMessage() {
     yield takeLatest(ACTIONS.SEND_INDIVIDUAL_MESSAGE, sendIMMessage);
 }
 
+function* sendGroupMessage() {
+    yield takeLatest(ACTIONS.SEND_GROUP_MESSAGE, sendIMMessage);
+}
+
 function* createGroup() {
     yield takeLatest(ACTIONS.CREATE_GROUP, createNewGroup);
 }
@@ -78,4 +82,5 @@ export default function* initialDetailsSaga() {
     yield fork(getGroupMessageConversationSaga);
     yield fork(sendMessage);
     yield fork(createGroup);
+    yield fork(sendGroupMessage);
 }

@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MessageAreaComponent from '../Components/message-area/message-area-component';
-import PropTypes from 'prop-types'
-import { sendIndividualMessage } from '../actions/directMessageActions'
+import PropTypes from 'prop-types';
+import { sendIndividualMessage } from '../actions/directMessageActions';
+import { sendGroupMessage } from '../actions/groupMessageActions';
+import openSocket from 'socket.io-client';
+const socket = openSocket('/my-namespace');
+
 class MessageAreaContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -27,15 +31,19 @@ class MessageAreaContainer extends React.Component {
     sendMessage = (message) => {
         const params = {
             type: this.state.selectedMode,
-            id: this.selectedId,
+            id: this.state.selectedId,
             time: parseInt((new Date().getTime() / 1000).toFixed(0)),
             fromUser: this.state.currentUserId,
             message: message
         }
-        if (this.selectedMode !== 'Groups') {
+        if (this.state.selectedMode !== 'Groups') {
             params.id = this.state.currentUserId < this.state.selectedId ? this.state.currentUserId + ':' + this.state.selectedId : this.state.selectedId + ':' + this.state.currentUserId;
         }
-        this.props.dispatch(sendIndividualMessage(params))
+        this.props.dispatch(this.state.selectedMode === 'Groups' ? sendGroupMessage(params) : sendIndividualMessage(params));
+        socket.on('news', function (data) {
+            console.log(data);
+        });
+        socket.emit('subscribeToTimer', 1000);
     }
     render() {
         return (

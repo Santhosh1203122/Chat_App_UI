@@ -23,5 +23,10 @@ export const APICONSTANTS = {
         endPoint: 'createGroup',
         method: 'POST', // GET, POST, DELETE
         containsParams: true
+    },
+    SEND_GROUP_MESSAGE: {
+        endPoint: 'sendGroupMessage',
+        method: 'POST', // GET, POST, DELETE
+        containsParams: true
     }
 }
