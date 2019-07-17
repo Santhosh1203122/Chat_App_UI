@@ -29,7 +29,9 @@ class SideBarContainer extends React.Component {
             createdBy: this.props.currentUserId
         };
         this.props.dispatch(createGroup(groupPayload));
+        
     }
+
     render() {
         return (
             <SideBarComponent userDetails={this.state.userDetails} groups={this.props.groups} directMessage={this.props.directMessage} threads={this.state.threads} getConversationHistory={this.getConversationHistory} createGroup={this.createGroup} />
