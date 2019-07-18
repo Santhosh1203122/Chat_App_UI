@@ -103,7 +103,7 @@ export default class CommonPopUpComponent extends React.Component {
             <div className="input-holder">
                 <label>Send Invites To</label>
                 <div className="chips-input" onClick={() => { this.userInput.focus() }}>
-                    {this.state.chipValue.map(chip => <div className="chip">{chip.user_name}<span className="chip-close">X</span></div>)}
+                    {this.state.chipValue.map(chip => <div className="chip">{chip.user_name}<span className="chip-close"><i class="fas fa-times"></i></span></div>)}
                     <input type="text" ref={(node) => this.userInput = node} onChange={(events) => this.updateInput(events, 'members')} />
                 </div>
 
@@ -132,7 +132,7 @@ export default class CommonPopUpComponent extends React.Component {
             <div className="input-holder">
                 <label>Send Invites To</label>
                 <div className="chips-input" onClick={() => { this.userInput.focus() }}>
-                    {this.state.chipValue.map(chip => <div className="chip">{chip.user_name}<span className="chip-close">X</span></div>)}
+                    {this.state.chipValue.map(chip => <div className="chip">{chip.user_name}<span className="chip-close"><i class="fas fa-times"></i></span></div>)}
                     <input type="text" ref={(node) => this.userInput = node} onChange={(events) => this.updateInput(events, 'members')} />
                 </div>
 

@@ -15,12 +15,11 @@ export default class SideBarComponent extends React.Component {
             unreadMessage: {}
         }
     }
-    componentDidMount() {
 
-    }
     componentWillReceiveProps(newProps) {
+        console.log(newProps);
         if (newProps.groups !== this.props.groups || newProps.directMessage !== this.props.directMessage || this.props.threads !== newProps.threads) {
-            this.setState({ groups: newProps.groups, directMessage: newProps.directMessage, threads: newProps.threads });
+            this.setState({ groups: newProps.groups, directMessage: newProps.directMessage, threads: newProps.threads, userName: newProps.userDetails['user_name'] });
         }
         if (newProps.userSuggestions && newProps.userSuggestions !== this.props.userSuggestions) {
             this.setState({ userSuggestions: newProps.userSuggestions });
@@ -83,6 +82,7 @@ export default class SideBarComponent extends React.Component {
             <div className="side-bar-component" >
                 <div className="current-user-name">
                     <span>Chat App</span>
+                    <p>{this.state.userName}</p>
                 </div>
                 {this.generateListItems(this.state.groups, 'Groups')}
                 {this.generateListItems(this.state.directMessage, 'Direct Message')}

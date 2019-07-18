@@ -46,7 +46,7 @@ class SideBarContainer extends React.Component {
             // this.setState({ conversations: this.state.conversations.concat(msg) })
             if (Number(msgDetails.fromUser) !== this.state.userDetails.user_id && ((this.state.selectedMode === 'Groups' && (this.state.selectedMode + this.state.selectedId) !== (msgDetails.type + msgDetails.id))
                 || (this.state.selectedMode !== 'Groups' && (this.state.userDetails.user_id < this.state.selectedId ? (this.state.userDetails.user_id + ':' + this.state.selectedId) : (this.state.selectedId + ':' + this.state.userDetails.user_id)) !== msgDetails.id))) {
-                this.props.dispatch(updateUnreadDetails({ id: this.state.selectedMode !== 'Groups' ? msgDetails.fromUser : msgDetails.id, mode: msgDetails.type }))
+                this.props.dispatch(updateUnreadDetails({ id: msgDetails.type !== 'Groups' ? msgDetails.fromUser : msgDetails.id, mode: msgDetails.type }))
             } else if (Number(msgDetails.fromUser) !== this.state.userDetails.user_id) {
                 this.props.dispatch(pushMessage(msgDetails));
             }
@@ -57,6 +57,7 @@ class SideBarContainer extends React.Component {
         if (groups) {
             groups.forEach(group => {
                 if (!this.connectedSockets.includes('Groups/' + group.group_id)) {
+                    this.connectedSockets.push('Groups/' + group.group_id);
                     this.connect('Groups/' + group.group_id)
                 }
             });
@@ -65,6 +66,7 @@ class SideBarContainer extends React.Component {
             directMessage.forEach(user => {
                 const nameSpaceID = 'Im' + '/' + (currentUserId < user.user_id ? (currentUserId + ':' + user.user_id) : (user.user_id + ':' + currentUserId));
                 if (!this.connectedSockets.includes(nameSpaceID)) {
+                    this.connectedSockets.push(nameSpaceID);
                     this.connect(nameSpaceID)
                 }
             });

@@ -15,7 +15,7 @@ const intialState = {
 };
 
 function Reducer(state = intialState, action) {
-    
+
     switch (action.type) {
         case ACTIONS.GET_INITIAL_DATA_SUCESS:
             const responseData = action.data;
@@ -26,7 +26,7 @@ function Reducer(state = intialState, action) {
             const clearUnreadMessageId = (action.data.type !== 'Groups' ? 'Im' : 'Groups') + action.data.id;
             const stateUnreadMessage = Object.assign({}, state.unreadMessage);
             stateUnreadMessage[clearUnreadMessageId] = 0;
-            return Object.assign({}, state, { selectedId: action.data.id, selectedMode: action.data.type,  unreadMessage: stateUnreadMessage });
+            return Object.assign({}, state, { selectedId: action.data.id, selectedMode: action.data.type, unreadMessage: stateUnreadMessage });
         case ACTIONS.SEND_INDIVIDUAL_CONVERSATION_HISTORY_SUCESS:
             return Object.assign({}, state, { conversations: state.conversations.concat(action.data) });
         case ACTIONS.SET_CURRENT_USER:
@@ -46,6 +46,10 @@ function Reducer(state = intialState, action) {
             return Object.assign({}, state, { unreadMessage: unreadMessage });
         case ACTIONS.PUSH_MESSAGE:
             return Object.assign({}, state, { conversations: state.conversations.concat(action.data) });
+        case ACTIONS.SEND_THREAD_MESSAGE_SUCESS:
+            return Object.assign({}, state, { threads: state.threads.concat(action.data) });
+        case ACTIONS.GET_THREAD_CONVERSATION_HISTORY_SUCESS:
+            return Object.assign({}, state, { threads: action.data });
         default:
             return state;
     }

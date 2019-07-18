@@ -9,7 +9,7 @@ export const APICONSTANTS = {
         method: 'GET', // GET, POST, DELETE
         containsParams: true
     },
-    SEND_INDIVIDUAL_MESSAGE : {
+    SEND_INDIVIDUAL_MESSAGE: {
         endPoint: 'sendDirectMessage',
         method: 'POST', // GET, POST, DELETE
         containsParams: true
@@ -39,14 +39,24 @@ export const APICONSTANTS = {
         method: 'GET', // GET, POST, DELETE
         containsParams: true
     },
-    GET_CHANNEL_DETAILS : {
+    GET_CHANNEL_DETAILS: {
         endPoint: 'getChannelDetails',
         method: 'GET', // GET, POST, DELETE
         containsParams: true
     },
     UPDATE_GROUP: {
-        endPoint : 'updateGroup',
+        endPoint: 'updateGroup',
         method: 'POST',
+        containsParams: true
+    },
+    SEND_THREAD_MESSAGE: {
+        endPoint: 'sendThreadMessage',
+        method: 'POST',
+        containsParams: true
+    },
+    GET_THREAD_CONVERSATION_HISTORY: {
+        endPoint: 'getThreadMessage',
+        method: 'GET',
         containsParams: true
     }
 }

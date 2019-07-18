@@ -2,12 +2,12 @@ import { ACTIONS } from '../constants/Constants';
 import { triggerApi } from '../services/api';
 import { call, put, fork, takeLatest } from 'redux-saga/effects';
 import { initialActionSucess, searchUserSucess, getChannelDetailSuccess } from '../actions/sideBaraction';
-import { getIndividualConversationHistorySucess, individualConversationSentSuccess, createImSucess } from '../actions/directMessageActions';
+import { getIndividualConversationHistorySucess, individualConversationSentSuccess, createImSucess, sendThreadMessagesSuccess, getThreadsHistroySuccess } from '../actions/directMessageActions';
 import { createGroupSucess } from '../actions/groupMessageActions';
 
 function* defaultSaga() {
-        //
-    }
+    //
+}
 
 function* fetchInitialUserDetails(data) {
     try {
@@ -92,6 +92,27 @@ function* updateGroupMembers(data) {
     }
 }
 
+function* sendThreadMessages(data) {
+    try {
+        const resultData = yield call(triggerApi, data);
+        if (resultData) {
+            yield put(sendThreadMessagesSuccess(resultData))
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* getThreadHistoryData(data) {
+    try {
+        const resultData = yield call(triggerApi, data);
+        if (resultData) {
+            yield put(getThreadsHistroySuccess(resultData))
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 function* getInitialUserDetails() {
     yield takeLatest(ACTIONS.GET_INITIAL_DATA, fetchInitialUserDetails);
@@ -133,6 +154,13 @@ function* updateGroup() {
     yield takeLatest(ACTIONS.UPDATE_GROUP, updateGroupMembers);
 }
 
+function* sendThreadMessage() {
+    yield takeLatest(ACTIONS.SEND_THREAD_MESSAGE, sendThreadMessages);
+}
+
+function* getThreadHistory() {
+    yield takeLatest(ACTIONS.GET_THREAD_CONVERSATION_HISTORY, getThreadHistoryData);
+}
 
 
 export default function* initialDetailsSaga() {
@@ -142,8 +170,10 @@ export default function* initialDetailsSaga() {
     yield fork(sendMessage);
     yield fork(createGroup);
     yield fork(sendGroupMessage);
-    yield fork(createIm);    
-    yield fork(searchUser);  
+    yield fork(createIm);
+    yield fork(searchUser);
     yield fork(getChannelDetails);
     yield fork(updateGroup);
+    yield fork(sendThreadMessage);
+    yield fork(getThreadHistory);
 }

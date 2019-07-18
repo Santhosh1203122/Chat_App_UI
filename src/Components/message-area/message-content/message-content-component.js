@@ -15,10 +15,13 @@ export default class MessageContentComponent extends React.Component {
     componentWillReceiveProps(newProps) {
         this.setState({ conversations: newProps.conversations });
     }
+    createThread = (message) => {
+        this.props.openThreadWindow(message)
+    }
 
     generateMessageContent = (messages) => {
         let lastDate = ''
-        return messages.map(message => {
+        return messages ? messages.map(message => {
             const currentMessageDate = new Date(message.time * 1000).toLocaleDateString("en-US");
             const displayDate = lastDate !== currentMessageDate ? true : false;
             lastDate = displayDate ? currentMessageDate : lastDate;
@@ -33,19 +36,21 @@ export default class MessageContentComponent extends React.Component {
                         <img src={displayImage} />
                     </div>
                     <div className="message-content">
-                        <span className="user-name">{message.userName}</span>
+                        <span className="user-name">{message.userName || message.user_name}</span>
                         <span>{new Date(message.time * 1000).toLocaleTimeString("en-US")} </span>
+                        {this.props.isTread ? '' : <i class="far fa-comment-dots reply" onClick={() => this.createThread(message)}></i>}
                         <p className="message">{message.message} </p>
                     </div>
 
                 </div>
+                {message.threads_count > 0 ? <div>{message.threads_count} Relpies</div> : ''}
             </div >
 
-        });
+        }) : '';
     }
     render() {
         return (
-            <div>
+            <div class="external-holder">
                 {this.generateMessageContent(this.state.conversations)}
             </div>
 
@@ -54,5 +59,7 @@ export default class MessageContentComponent extends React.Component {
 }
 
 MessageContentComponent.propTypes = {
-    conversations: PropTypes.array,
+    conversations: PropTypes.any,
+    openThreadWindow: PropTypes.func,
+    isTread: PropTypes.any
 }
