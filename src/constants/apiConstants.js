@@ -28,5 +28,25 @@ export const APICONSTANTS = {
         endPoint: 'sendGroupMessage',
         method: 'POST', // GET, POST, DELETE
         containsParams: true
+    },
+    CREATE_IM: {
+        endPoint: 'createIm',
+        method: 'POST', // GET, POST, DELETE
+        containsParams: true
+    },
+    SEARCH_USER: {
+        endPoint: 'searchUsers',
+        method: 'GET', // GET, POST, DELETE
+        containsParams: true
+    },
+    GET_CHANNEL_DETAILS : {
+        endPoint: 'getChannelDetails',
+        method: 'GET', // GET, POST, DELETE
+        containsParams: true
+    },
+    UPDATE_GROUP: {
+        endPoint : 'updateGroup',
+        method: 'POST',
+        containsParams: true
     }
 }

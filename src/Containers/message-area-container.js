@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import MessageAreaComponent from '../Components/message-area/message-area-component';
 import PropTypes from 'prop-types';
 import { sendIndividualMessage } from '../actions/directMessageActions';
-import { sendGroupMessage } from '../actions/groupMessageActions';
+import { sendGroupMessage, updateGroup } from '../actions/groupMessageActions';
 import io from 'socket.io-client';
+import { searchUser } from '../actions/sideBaraction';
 
 class MessageAreaContainer extends React.Component {
     constructor(props) {
@@ -15,10 +16,11 @@ class MessageAreaContainer extends React.Component {
             selectedId: null,
             selectedMode: null,
             socket: '',
+            userSuggestions: []
         }
     }
     componentDidMount() {
-        
+
     }
     componentWillReceiveProps(newProps) {
         if (newProps.conversations && this.props.conversations !== newProps.conversations) {
@@ -28,24 +30,27 @@ class MessageAreaContainer extends React.Component {
             this.setState({ currentUserId: newProps.currentUserId })
         }
         if (newProps.selectedId && this.props.selectedId !== newProps.selectedId) {
-            this.setState({ selectedId: newProps.selectedId, selectedMode: newProps.selectedMode , socket: this.connect(newProps.selectedMode, newProps.selectedId )})
+            this.setState({ selectedId: newProps.selectedId, selectedMode: newProps.selectedMode, socket: this.connect(newProps.selectedMode, newProps.selectedId) })
+        }
+        if (newProps.userSuggestions && this.props.userSuggestions !== newProps.userSuggestions) {
+            this.setState({ userSuggestions: newProps.userSuggestions })
         }
     }
-    listenVal = (conn) => {
-        conn.on('emit message', (msg) => {
-           this.setState({conversations: this.state.conversations.concat(msg)})
-          });
+    // listenVal = (conn) => {
+    //     conn.on('emit message', (msg) => {
+    //         this.setState({ conversations: this.state.conversations.concat(msg) })
+    //     });
 
-    }
+    // }
     connect = (selectedMode, selectedId) => {
         let nameSpaceID = ''
-        if(selectedMode === 'Groups') {
-            nameSpaceID = selectedMode  + '/' + selectedId
+        if (selectedMode === 'Groups') {
+            nameSpaceID = selectedMode + '/' + selectedId
         } else {
-            nameSpaceID = 'Im'  + '/' + (this.state.currentUserId < selectedId ? (this.state.currentUserId  + ':' + selectedId) : (selectedId  + ':' + this.state.currentUserId))
+            nameSpaceID = 'Im' + '/' + (this.state.currentUserId < selectedId ? (this.state.currentUserId + ':' + selectedId) : (selectedId + ':' + this.state.currentUserId))
         }
-        const conn = io.connect('http://localhost:3002/'+nameSpaceID);
-        this.listenVal(conn);
+        const conn = io.connect('http://localhost:3002/' + nameSpaceID);
+        // this.listenVal(conn);
         return conn;
     }
     sendMessage = (message) => {
@@ -64,11 +69,19 @@ class MessageAreaContainer extends React.Component {
         params['userName'] = this.props.userDetails['user_name'];
         this.state.socket.emit('receive message', params);
     }
+    getUser = (searchString) => {
+        this.props.dispatch(searchUser({ searchString }));
+    }
+    addUser = (members, groupName) => {
+        this.props.dispatch(updateGroup({ id: this.state.selectedId, members, groupName }))
+    }
     render() {
         return (
-            <MessageAreaComponent conversations={this.state.conversations} sendMessage={this.sendMessage} />
+            <MessageAreaComponent conversations={this.state.conversations} sendMessage={this.sendMessage} channelDetails={this.props.channelDetails} getUser={this.getUser} userSuggestions={this.state.userSuggestions} addUser={this.addUser} />
         );
     }
+
+
 }
 MessageAreaContainer.propTypes = {
     dispatch: PropTypes.func.isRequired
@@ -80,7 +93,9 @@ function mapStateToProps(state) {
         currentUserId: state.currentUserId,
         selectedId: state.selectedId,
         selectedMode: state.selectedMode,
-        userDetails: state.userDetails
+        userDetails: state.userDetails,
+        channelDetails: state.channelDetails,
+        userSuggestions: state.userSuggestions,
     }
 }
 

@@ -24,8 +24,8 @@
     .list-item-header {
       padding: 0 12px;
       margin: 6px 0;
-      height: 30px;
-      font-size: 18px;
+      height: 25px;
+      font-size: 14px;
       color: #b29fb3;
       cursor: pointer;
       line-height: 30px;
@@ -37,6 +37,19 @@
       &.selected {
         background: #1164a3 !important;
         color: white;
+      }
+      .unread-message {
+        background: red;
+        float: right;
+        min-width: 14px;
+        min-height: 14px;
+        border-radius: 50%;
+        padding: 0 5px;
+        line-height: 1.8;
+        font-weight: 700;
+        color: #ffffff;
+        margin-top: 6px;
+        font-size: 12px;
       }
     }
     .fa-circle {

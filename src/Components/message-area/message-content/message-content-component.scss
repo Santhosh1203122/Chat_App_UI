@@ -26,3 +26,18 @@
     }
   }
 }
+.display-date{
+  width: 100%;
+  padding: 15px 0;
+  .date-border {
+    height: 1px;
+    border: 1px solid #cecdcd;
+  }
+  span {
+    position: relative;
+    left: 50%;
+    top: -12px;
+    background: white;
+    padding: 0 10px;
+  }
+}

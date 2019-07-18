@@ -1,8 +1,8 @@
 import { ACTIONS } from '../constants/Constants';
 import { triggerApi } from '../services/api';
 import { call, put, fork, takeLatest } from 'redux-saga/effects';
-import { initialActionSucess } from '../actions/sideBaraction';
-import { getIndividualConversationHistorySucess, individualConversationSentSuccess } from '../actions/directMessageActions';
+import { initialActionSucess, searchUserSucess, getChannelDetailSuccess } from '../actions/sideBaraction';
+import { getIndividualConversationHistorySucess, individualConversationSentSuccess, createImSucess } from '../actions/directMessageActions';
 import { createGroupSucess } from '../actions/groupMessageActions';
 
 function* defaultSaga() {
@@ -52,6 +52,47 @@ function* createNewGroup(data) {
     }
 }
 
+function* createNewIm(data) {
+    try {
+        const resultData = yield call(triggerApi, data);
+        if (resultData) {
+            yield put(createImSucess(resultData))
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* searchUserFromDB(data) {
+    try {
+        const resultData = yield call(triggerApi, data);
+        if (resultData) {
+            yield put(searchUserSucess(resultData))
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* getChannelDetail(data) {
+    try {
+        const resultData = yield call(triggerApi, data);
+        if (resultData) {
+            yield put(getChannelDetailSuccess(resultData))
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+function* updateGroupMembers(data) {
+    try {
+        const resultData = yield call(triggerApi, data);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 function* getInitialUserDetails() {
     yield takeLatest(ACTIONS.GET_INITIAL_DATA, fetchInitialUserDetails);
 }
@@ -76,6 +117,24 @@ function* createGroup() {
     yield takeLatest(ACTIONS.CREATE_GROUP, createNewGroup);
 }
 
+function* createIm() {
+    yield takeLatest(ACTIONS.CREATE_IM, createNewIm);
+}
+
+function* searchUser() {
+    yield takeLatest(ACTIONS.SEARCH_USER, searchUserFromDB);
+}
+
+function* getChannelDetails() {
+    yield takeLatest(ACTIONS.GET_CHANNEL_DETAILS, getChannelDetail);
+}
+
+function* updateGroup() {
+    yield takeLatest(ACTIONS.UPDATE_GROUP, updateGroupMembers);
+}
+
+
+
 export default function* initialDetailsSaga() {
     yield fork(getInitialUserDetails);
     yield fork(getDirectMessageConversationSaga);
@@ -83,4 +142,8 @@ export default function* initialDetailsSaga() {
     yield fork(sendMessage);
     yield fork(createGroup);
     yield fork(sendGroupMessage);
+    yield fork(createIm);    
+    yield fork(searchUser);  
+    yield fork(getChannelDetails);
+    yield fork(updateGroup);
 }

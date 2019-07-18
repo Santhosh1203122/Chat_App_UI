@@ -8,19 +8,21 @@ export default class MessageAreaComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            conversations: []
+            conversations: [],
+            userSuggestions: []
         }
     }
-    componentDidMount() {
-        // document.addEventListener('scroll', this.trackScrolling);
-    }
+
     componentWillReceiveProps(newProps) {
-        if(newProps.conversations) {
-            this.setState({conversations: newProps.conversations});
+        if (newProps.conversations) {
+            this.setState({ conversations: newProps.conversations });
+        }
+        if (newProps.userSuggestions && newProps.userSuggestions !== this.userSuggestions) {
+            this.setState({ userSuggestions: newProps.userSuggestions });
         }
     }
     sendMessage = (event) => {
-        if(event.key === 'Enter') {
+        if (event.key === 'Enter') {
             this.props.sendMessage(event.target.value);
             event.target.value = ''
         }
@@ -29,24 +31,26 @@ export default class MessageAreaComponent extends React.Component {
 
     render() {
         return (
-            <div className="message-area">
-                <DetailsBarComponent />
-                <div className="message-display-area">
-                    <MessageContentComponent conversations={this.state.conversations}/>
-                </div>
-                <div className="message-entry-area">
-                    <input placeholder="Enter Messge here"  onKeyDown={this.sendMessage}/>
-                </div>
-            </div>
+            this.props.channelDetails ?
+                <div className="message-area">
+                    <DetailsBarComponent channelDetails={this.props.channelDetails} getUser={this.props.getUser} userSuggestions={this.state.userSuggestions} addUser={this.props.addUser} />
+                    <div className="message-display-area">
+                        <MessageContentComponent conversations={this.state.conversations} />
+                    </div>
+                    <div className="message-entry-area">
+                        <input placeholder="Enter Messge here" onKeyDown={this.sendMessage} />
+                    </div>
+                </div> : ''
         );
     }
 }
 
 MessageAreaComponent.propTypes = {
     conversations: PropTypes.array,
-    sendMessage: PropTypes.func
-    // videoList: PropTypes.array,
-    // getVideoByPageNumber: PropTypes.func,
-    // isLastSetOfData: PropTypes.any,
-    // lastPageRequested: PropTypes.any
+    sendMessage: PropTypes.func,
+    details: PropTypes.any,
+    channelDetails: PropTypes.any,
+    getUser: PropTypes.func,
+    userSuggestions: PropTypes.any,
+    addUser: PropTypes.func
 }

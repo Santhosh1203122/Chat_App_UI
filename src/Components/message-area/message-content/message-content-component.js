@@ -13,22 +13,33 @@ export default class MessageContentComponent extends React.Component {
 
     }
     componentWillReceiveProps(newProps) {
-        this.setState({conversations: newProps.conversations  });
+        this.setState({ conversations: newProps.conversations });
     }
 
     generateMessageContent = (messages) => {
+        let lastDate = ''
         return messages.map(message => {
-            return <div className="message-content-holder">
-                <div className="profile-img-holder">
-                    <img src={displayImage} />
-                </div>
-                <div className="message-content">
-                    <span className="user-name">{message.userName}</span>
-                    <span>{new Date(message.time * 1000).toLocaleTimeString("en-US")} </span>
-                    <p className="message">{message.message} </p>
-                </div>
+            const currentMessageDate = new Date(message.time * 1000).toLocaleDateString("en-US");
+            const displayDate = lastDate !== currentMessageDate ? true : false;
+            lastDate = displayDate ? currentMessageDate : lastDate;
+            return <div>
+                {displayDate ? <div className="display-date">
+                    <div className="date-border"></div>
+                    <span>{currentMessageDate}</span>
+                </div> : ''}
+                <div className="message-content-holder">
 
-            </div>
+                    <div className="profile-img-holder">
+                        <img src={displayImage} />
+                    </div>
+                    <div className="message-content">
+                        <span className="user-name">{message.userName}</span>
+                        <span>{new Date(message.time * 1000).toLocaleTimeString("en-US")} </span>
+                        <p className="message">{message.message} </p>
+                    </div>
+
+                </div>
+            </div >
 
         });
     }

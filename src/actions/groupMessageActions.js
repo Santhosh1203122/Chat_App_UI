@@ -2,10 +2,10 @@
 import { ACTIONS } from '../constants/Constants';
 import { constructUrl } from '../services/api';
 
-export function getGroupConversationHistory(parmas) {
+export function getGroupConversationHistory(params) {
     const serviceParams = {};
     serviceParams.apiName = 'GET_GROUP_CONVERSATION';
-    serviceParams.params = parmas;
+    serviceParams.params = params;
     const requestData = constructUrl(serviceParams);
     return {
         type: ACTIONS.GET_GROUP_CONVERSATION_HISTORY,
@@ -27,6 +27,17 @@ export function createGroup(payload) {
     const requestData = constructUrl(serviceParams);
     return {
         type: ACTIONS.CREATE_GROUP,
+        requestData
+    }
+}
+
+export function updateGroup(payload) {
+    const serviceParams = {};
+    serviceParams.apiName = 'UPDATE_GROUP';
+    serviceParams.payload = payload;
+    const requestData = constructUrl(serviceParams);
+    return {
+        type: ACTIONS.UPDATE_GROUP,
         requestData
     }
 }
