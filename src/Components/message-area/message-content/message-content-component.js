@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import './message-content-component.scss';
-import displayImage from '../../../Utils/inside_explosion_hd-wide-1.jpg'
+import displayImage from '../../../Utils/user-1.png'
 export default class MessageContentComponent extends React.Component {
     constructor(props) {
         super(props);
