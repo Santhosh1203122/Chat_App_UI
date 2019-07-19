@@ -5,7 +5,7 @@ import MessageAreaContainer from './message-area-container';
 import PropTypes from 'prop-types'
 import './index.scss';
 import { initialAction } from '../actions/sideBaraction'
-import { stat } from 'fs';
+import * as qs from 'query-string';
 
 class WrapperContainer extends React.Component {
     constructor(props) {
@@ -15,10 +15,10 @@ class WrapperContainer extends React.Component {
         }
     }
     componentDidMount() {
-        this.props.dispatch(initialAction({ userId: this.props.currentUserId }));
+        const userId = qs.parse(window.location.search)['userId'];
+        this.props.dispatch(initialAction({ userId: Number(userId) }));
     }
-    componentWillReceiveProps(newProps) {
-    }
+    
     render() {
         return (
             <div className="wrapper">

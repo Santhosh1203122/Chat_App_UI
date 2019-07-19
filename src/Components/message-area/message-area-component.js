@@ -15,7 +15,6 @@ export default class MessageAreaComponent extends React.Component {
             threads: []
         }
     }
-
     componentWillReceiveProps(newProps) {
         if (newProps.conversations) {
             this.setState({ conversations: newProps.conversations });
@@ -36,8 +35,8 @@ export default class MessageAreaComponent extends React.Component {
 
     openThreadWindow = (message) => {
         this.props.getThreadsHistroy(message);
-        this.setState({ messageWindowWidth: '65%', threadDetails: message });
-       
+        this.setState({ messageWindowWidth: '64%', threadDetails: message });
+
     }
 
     sendThreadMessage = (event) => {
@@ -53,21 +52,24 @@ export default class MessageAreaComponent extends React.Component {
                 <div className="message-area">
                     <DetailsBarComponent channelDetails={this.props.channelDetails} getUser={this.props.getUser} userSuggestions={this.state.userSuggestions} addUser={this.props.addUser} />
 
-                    <div className="message-display-area" style={{ width: this.state.messageWindowWidth }}>
+                    <div id="out" className="message-display-area" style={{ width: this.state.messageWindowWidth }}>
                         <MessageContentComponent conversations={this.state.conversations} openThreadWindow={this.openThreadWindow} />
                     </div>
+
                     <div className="message-entry-area" style={{ width: this.state.messageWindowWidth }}>
                         <input placeholder="Enter Messge here" onKeyDown={this.sendMessage} />
                     </div>
                     {
-                        this.state.messageWindowWidth === '65%' ? <div class="thread-area">
+                        this.state.messageWindowWidth === '64%' ? <div class="thread-area">
                             <div className="thread-header">
-                                <span>Threads</span>
-                                <p>{this.state.threadDetails.userName}</p>
+                                <div className="thread-details-bar">
+                                    <span>Threads</span>
+                                    <p>{this.state.threadDetails.userName}</p>
+                                </div>
                                 <i class="fas fa-times" onClick={() => this.setState({ messageWindowWidth: '87%' })}></i>
                             </div>
                             <div className="threads-message-holder">
-                                <MessageContentComponent conversations={this.state.threads} isTread={true}/>
+                                <MessageContentComponent conversations={this.state.threads} isTread={true} />
                             </div>
                             <div className="thread-entry-area" >
                                 <input placeholder="Enter Messge here" onKeyDown={this.sendThreadMessage} />

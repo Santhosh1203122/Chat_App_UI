@@ -86,7 +86,6 @@ class MessageAreaContainer extends React.Component {
         this.props.dispatch(updateGroup({ id: this.state.selectedId, members, groupName }))
     }
     getThreadsHistroy = (message) => {
-        console.log(message);
         const payloadData = { chat_id: message.chat_id, chat_type: (this.state.selectedMode !== 'Groups' ? 'Im' : 'Groups') }
         if(message.group_id) {
             payloadData['group_id'] = message.group_id;

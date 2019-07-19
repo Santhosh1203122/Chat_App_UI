@@ -8,12 +8,21 @@ export default class MessageContentComponent extends React.Component {
         this.state = {
             conversations: []
         }
+        this.messagesEnd = ''
     }
-    componentDidMount() {
-
+    // componentDidUpdate(update) {
+    //     if(update.conversations && update.conversations !== )
+    //     this.scrollToBottom();
+    // }
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView();
     }
     componentWillReceiveProps(newProps) {
-        this.setState({ conversations: newProps.conversations });
+        if (newProps.conversations && this.props.conversations !== newProps.conversations) {
+            this.setState({ conversations: newProps.conversations }, () => {
+                this.scrollToBottom();
+            });
+        }
     }
     createThread = (message) => {
         this.props.openThreadWindow(message)
@@ -25,33 +34,42 @@ export default class MessageContentComponent extends React.Component {
             const currentMessageDate = new Date(message.time * 1000).toLocaleDateString("en-US");
             const displayDate = lastDate !== currentMessageDate ? true : false;
             lastDate = displayDate ? currentMessageDate : lastDate;
-            return <div>
+            return <div className="message-wrapper" >
                 {displayDate ? <div className="display-date">
                     <div className="date-border"></div>
                     <span>{currentMessageDate}</span>
                 </div> : ''}
-                <div className="message-content-holder">
+                <div >
+                    <div className="message-content-holder">
 
-                    <div className="profile-img-holder">
+                        <div className="profile-img-holder">
+                            <img src={displayImage} />
+                        </div>
+                        <div className="message-content">
+                            <span className="user-name">{message.userName || message.user_name}</span>
+                            <span>{new Date(message.time * 1000).toLocaleTimeString("en-US")} </span>
+                            {this.props.isTread ? '' : <i class="far fa-comment-dots reply" onClick={() => this.createThread(message)}></i>}
+                            <p className="message">{message.message} </p>
+                        </div>
+
+                    </div>
+                    {message.threads_count > 0 ? <div className="threads-count" onClick={() => this.createThread(message)}>
                         <img src={displayImage} />
-                    </div>
-                    <div className="message-content">
-                        <span className="user-name">{message.userName || message.user_name}</span>
-                        <span>{new Date(message.time * 1000).toLocaleTimeString("en-US")} </span>
-                        {this.props.isTread ? '' : <i class="far fa-comment-dots reply" onClick={() => this.createThread(message)}></i>}
-                        <p className="message">{message.message} </p>
-                    </div>
-
+                        <span className="no-of-replies">{message.threads_count} Relpies</span>
+                        <span className="view-threads">View threads</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div> : ''}
                 </div>
-                {message.threads_count > 0 ? <div>{message.threads_count} Relpies</div> : ''}
             </div >
 
         }) : '';
     }
     render() {
         return (
-            <div class="external-holder">
+            <div class="external-holder" id="out1">
                 {this.generateMessageContent(this.state.conversations)}
+                <div style={{ float: "left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }}></div>
             </div>
 
         );

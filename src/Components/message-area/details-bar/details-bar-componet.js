@@ -16,8 +16,7 @@ export default class DetailsBarComponent extends React.Component {
     }
     componentWillReceiveProps(newProps) {
         if (newProps.channelDetails) {
-            this.setState({ channelDetails: newProps.channelDetails, addUser: newProps.addUser })
-            console.log(newProps.addUser);
+            this.setState({ channelDetails: newProps.channelDetails, addUser: newProps.addUser });
         }
         if(newProps.userSuggestions && newProps.userSuggestions !== this.userSuggestions) {
             this.setState({userSuggestions: newProps.userSuggestions});

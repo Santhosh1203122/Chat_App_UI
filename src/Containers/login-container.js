@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AuthenticationComponent from '../Components/authentication/authentication-component';
 import PropTypes from 'prop-types'
-import {setCurrentUser} from '../actions/loginAction';
+import {getCurrentUser} from '../actions/loginAction';
 import {withRouter} from 'react-router-dom'
 
 class AuthemnticationContainer extends React.Component {
@@ -12,14 +12,8 @@ class AuthemnticationContainer extends React.Component {
             userDetails: {}
         }
     }
-    componentWillReceiveProps(newProps) {
-        console.log(newProps)
-        if (newProps.currentUserId) {
-            this.props.history.push("/message")
-        }
-    }
     checkLogin = (id) => {
-        this.props.dispatch(setCurrentUser({id}));
+        this.props.history.push("/message/?userId="+id)
     }
     render() {
         return (

@@ -17,8 +17,8 @@ export default class AuthenticationComponent extends React.Component {
     }
     render() {
         return (
-            <div class="authentication">
-                <div class="authentication-form-login">
+            <div className="authentication">
+                <div className="authentication-form-login">
                     <h3>Login</h3>
                     <div className="input-holder">
                         <label>User Id</label>
@@ -28,11 +28,9 @@ export default class AuthenticationComponent extends React.Component {
                         <label>Password</label>
                         <input type="password" placeholder="Password" />
                     </div>
-                    <div class="remember-me">
-                    </div>
-                    <div class="row">
-                        <div class="button-holder">
-                            <button type="button" class="btn custom-btn center-block" onClick={this.login}>Login</button>
+                    <div >
+                        <div className="button-holder">
+                            <button type="button" className="btn custom-btn center-block" onClick={this.login}>Login</button>
 
                         </div>
                     </div>

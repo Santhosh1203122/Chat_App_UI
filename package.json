@@ -2,7 +2,7 @@
   "name": "ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Santhosh1203122.github.io/Diagnal_UI",
+  "homepage": "https://Santhosh1203122.github.io/Chat_App_UI",
   "dependencies": {
     "@material-ui/core": "^4.2.0",
     "axios": "^0.19.0",

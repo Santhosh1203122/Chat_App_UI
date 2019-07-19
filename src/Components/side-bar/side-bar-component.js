@@ -17,7 +17,6 @@ export default class SideBarComponent extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.log(newProps);
         if (newProps.groups !== this.props.groups || newProps.directMessage !== this.props.directMessage || this.props.threads !== newProps.threads) {
             this.setState({ groups: newProps.groups, directMessage: newProps.directMessage, threads: newProps.threads, userName: newProps.userDetails['user_name'] });
         }
@@ -25,7 +24,6 @@ export default class SideBarComponent extends React.Component {
             this.setState({ userSuggestions: newProps.userSuggestions });
         }
         if (newProps.unreadMessage !== this.props.unreadMessage) {
-            console.log(newProps.unreadMessage);
             this.setState({ unreadMessage: newProps.unreadMessage });
         }
     }
