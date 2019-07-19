@@ -17,7 +17,7 @@ class WrapperContainer extends React.Component {
     }
     componentDidMount() {
         const userId = qs.parse(window.location.search)['userId'];
-        this.props.dispatch(getCurrentUser({id: userId}));
+        this.props.dispatch(getCurrentUser({id: Number(userId)}));
         this.props.dispatch(initialAction({ userId: Number(userId) }));
     }
     
