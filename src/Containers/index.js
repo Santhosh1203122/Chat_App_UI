@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import './index.scss';
 import { initialAction } from '../actions/sideBaraction'
 import * as qs from 'query-string';
+import { getCurrentUser } from '../actions/loginAction'
 
 class WrapperContainer extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class WrapperContainer extends React.Component {
     }
     componentDidMount() {
         const userId = qs.parse(window.location.search)['userId'];
+        this.props.dispatch(getCurrentUser({id: userId}));
         this.props.dispatch(initialAction({ userId: Number(userId) }));
     }
     

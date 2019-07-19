@@ -19,7 +19,7 @@ export function triggerApi(apiData) {
 
 export function constructUrl(inputParams) {
     const apiData = APICONSTANTS[inputParams.apiName];
-    const serverUrl = 'http://localhost:3001/api/';
+    const serverUrl = 'https://chat-app-server-full-stack.herokuapp.com/api/';
     let apiUrl = new URL(serverUrl + apiData.endPoint);
 
     if (apiData.containsParams && inputParams.params) {

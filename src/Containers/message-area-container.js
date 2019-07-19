@@ -47,7 +47,8 @@ class MessageAreaContainer extends React.Component {
         } else {
             nameSpaceID = 'Im' + '/' + (this.state.currentUserId < selectedId ? (this.state.currentUserId + ':' + selectedId) : (selectedId + ':' + this.state.currentUserId))
         }
-        const conn = io.connect('http://localhost:3002/' + nameSpaceID);
+       
+        const conn = io.connect('https://chat-app-server-full-stack.herokuapp.com:3002' + nameSpaceID);
         return conn;
     }
     sendMessage = (message, thread) => {

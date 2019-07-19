@@ -73,7 +73,7 @@ class SideBarContainer extends React.Component {
         }
     }
     connect = (nameSpaceID) => {
-        const conn = io.connect('http://localhost:3002/' + nameSpaceID);
+        const conn = io.connect('https://chat-app-server-full-stack.herokuapp.com:3002/' + nameSpaceID);
         this.listenMessageVal(conn);
         return conn;
     }
@@ -92,7 +92,7 @@ class SideBarContainer extends React.Component {
 
     }
     connectUser = (nameSpaceID) => {
-        const conn = io.connect('http://localhost:3002/' + nameSpaceID);
+        const conn = io.connect('https://chat-app-server-full-stack.herokuapp.com:3002/' + nameSpaceID);
         this.listenVal(conn);
         return conn;
     }
