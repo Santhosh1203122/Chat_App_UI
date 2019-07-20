@@ -60,6 +60,9 @@
     bottom: 0;
     height: 93%;
     overflow-y: auto;
+    .threads-message-holder {
+      margin-top: 80px;
+    }
   }
   .fa-times {
     color: #a7a5a5;
